@@ -181,10 +181,10 @@ function App() {
 
         try {
             // Endpoint de tu backend Spring Boot
-            const response = await fetch('https://jalisa-unsensualistic-unfemininely.ngrok-free.app/api/portfolio/contact', {
+            const response = await fetch('https://jalisa-unsensualistic-unfemininely.ngrok-free.dev/api/portfolio/contact', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(formData)
             });
