@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Github, Linkedin, Mail, Moon, Sun, ExternalLink, Code2, Database, Server, ChevronDown, ChevronUp, GraduationCap, Languages, Lightbulb, Briefcase, Calendar, MapPin, Send, User, MessageSquare } from 'lucide-react';
+import { Github, Linkedin, Mail, Moon, Sun, ExternalLink, Code2, Database, Server, ChevronDown, ChevronUp, GraduationCap, Languages, Lightbulb, Briefcase, Calendar, MapPin, Send, User, MessageSquare, ChevronLeft, ChevronRight, X } from 'lucide-react';
 
 const PERSONAL_DATA = {
     name: "Francis Vaccarezza",
@@ -71,7 +71,7 @@ const PERSONAL_DATA = {
                 "Gestión de ciclo completo: Desarrollo (Bitbucket) → Testing → Producción",
                 "Mantenimiento post-release utilizando Kanban para bugfixing y mejoras",
                 "Migraciones de APIs legacy a Java moderno",
-                "Diseño y optimización de bases de datos (Store Procedures, Funciones, Scripts)",
+                "Creación y actualización de procesos en Oracle BPM 5.7/10.3",
                 "Implementación de seguridad con Spring Security y JWT"
             ],
             tech: ["Angular", "Spring Boot", "Java", "Oracle SQL", "REST/SOAP", "Jira", "Bitbucket", "Scrum", "Kanban"]
@@ -86,9 +86,9 @@ const PERSONAL_DATA = {
             description: "Desarrollo de soluciones financieras backend y gestión de bases de datos",
             responsibilities: [
                 "Análisis y desglosamiento de requerimientos en Jira/Trello",
+                "Diseño y optimización de bases de datos (Store Procedures, Funciones, Scripts)",
                 "Desarrollo de microservicios con Spring Framework (2.7/3.0) y Java (1.8/11)",
                 "Adaptación de Web Services REST y SOAP para productos financieros",
-                "Creación y actualización de procesos en Oracle BPM 5.7/10.3",
                 "Testing de APIs con Postman, Swagger y SOAP UI",
                 "Desarrollo de mejoras y actualizaciones en productos de Seguros, Préstamos y Refinanciación"
             ],
@@ -100,25 +100,146 @@ const PERSONAL_DATA = {
         {
             id: 1,
             title: "Hotel Management System",
-            description: "Sistema completo de gestión de habitaciones para hoteles con reservas, disponibilidad y administración",
-            tech: ["React", "Vite", "Spring Boot", "PostgreSQL", "JWT"],
-            github: "https://github.com/franhii/hotel-management",
-            image: "https://via.placeholder.com/400x200", // Reemplazar con tu URL
+            description: "Sistema de disponibilidad de habitaciones para hoteles con su estado (Control para check-in).",
+            tech: ["React", "Vite", "Spring Boot", "PostgreSQL", "JWT","Webhooks"],
+            demo: "https://frontendgestionhotelestado.onrender.com/login",
+            images: [
+                "https://i.imgur.com/DuaL2dg.png",
+                "https://i.imgur.com/VVhg4hj.png",
+                "https://i.imgur.com/RKRFuM4.png",
+                "https://i.imgur.com/3TRJztR.png",
+                "https://i.imgur.com/AWN50GK.png"
+            ],
             status: "MVP",
             statusColor: "green"
         },
         {
             id: 2,
-            title: "Multi-tenant ERP",
-            description: "ERP empresarial con arquitectura multi-tenant, gestión de roles, manejo de excepciones y seguridad avanzada",
-            tech: ["React", "Vite", "Spring Boot", "Spring Security", "PostgreSQL", "JWT"],
-            github: "https://github.com/franhii/erp-system",
-            image: "https://via.placeholder.com/400x200", // Reemplazar con tu URL
+            title: "E-Commerce para rubros varios (Productos y Servicios).",
+            description: "ERP con arquitectura multi-tenant donde se le presenta una solución al cliente. Contiene métodos de pago, gestión de ventas, trazabilidad y gráficos estadísticos de las ventas por producto/servicio o fechas,etc.",
+            tech: ["React", "Vite", "Spring Boot", "Spring Security", "PostgreSQL", "JWT","MPIntegration","Webhooks"],
+            images: [
+                "https://via.placeholder.com/800x450/7c3aed/ffffff?text=ERP+Dashboard",
+                "https://via.placeholder.com/800x450/a855f7/ffffff?text=Tenant+Management",
+                "https://via.placeholder.com/800x450/c084fc/ffffff?text=Security+Module"
+            ], // Reemplazar con tus URLs
             status: "En desarrollo",
             statusColor: "yellow"
+        },
+        {
+            id: 3,
+            title: "Pacentin - Historial clínico y consultas de pacientes.",
+            description: "Aplicación de escritorio Java para un doctor, el objetivo era tener una app donde pueda subir el historial clínico y registrar cada consulta de los pacientes.(con fotos,pdfs,recetas,radiografias en formato de imagen jpg,png,etc...)",
+            tech: ["Java", "Swing/JavaFX"],
+            images: ["https://i.imgur.com/m1QImhZ.png",
+            "https://i.imgur.com/AmXgADt.png",
+            "https://i.imgur.com/93f6xAJ.png",],
+            status: "Completed",
+            statusColor: "green"
         }
     ]
 };
+
+function ImageCarousel({ images, projectTitle }) {
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const nextImage = (e) => {
+        e.stopPropagation();
+        setCurrentIndex((prev) => (prev + 1) % images.length);
+    };
+
+    const prevImage = (e) => {
+        e.stopPropagation();
+        setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+    };
+
+    return (
+        <>
+            <div className="relative group cursor-pointer" onClick={() => setIsModalOpen(true)}>
+                <img
+                    src={images[currentIndex]}
+                    alt={`${projectTitle} - imagen ${currentIndex + 1}`}
+                    className="w-full h-48 object-cover"
+                />
+
+                {images.length > 1 && (
+                    <>
+                        <button
+                            onClick={prevImage}
+                            className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/75 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                        >
+                            <ChevronLeft className="w-5 h-5" />
+                        </button>
+                        <button
+                            onClick={nextImage}
+                            className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/75 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                        >
+                            <ChevronRight className="w-5 h-5" />
+                        </button>
+                        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
+                            {images.map((_, idx) => (
+                                <div
+                                    key={idx}
+                                    className={`w-2 h-2 rounded-full ${
+                                        idx === currentIndex ? 'bg-white' : 'bg-white/50'
+                                    }`}
+                                />
+                            ))}
+                        </div>
+                    </>
+                )}
+            </div>
+
+            {isModalOpen && (
+                <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4" onClick={() => setIsModalOpen(false)}>
+                    <button
+                        onClick={() => setIsModalOpen(false)}
+                        className="absolute top-4 right-4 text-white hover:text-gray-300"
+                    >
+                        <X className="w-8 h-8" />
+                    </button>
+
+                    <div className="relative max-w-5xl w-full">
+                        <img
+                            src={images[currentIndex]}
+                            alt={`${projectTitle} - imagen ${currentIndex + 1}`}
+                            className="w-full h-auto rounded-lg"
+                            onClick={(e) => e.stopPropagation()}
+                        />
+
+                        {images.length > 1 && (
+                            <>
+                                <button
+                                    onClick={prevImage}
+                                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full backdrop-blur-sm"
+                                >
+                                    <ChevronLeft className="w-6 h-6" />
+                                </button>
+                                <button
+                                    onClick={nextImage}
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full backdrop-blur-sm"
+                                >
+                                    <ChevronRight className="w-6 h-6" />
+                                </button>
+                                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                                    {images.map((_, idx) => (
+                                        <div
+                                            key={idx}
+                                            className={`w-3 h-3 rounded-full ${
+                                                idx === currentIndex ? 'bg-white' : 'bg-white/50'
+                                            }`}
+                                        />
+                                    ))}
+                                </div>
+                            </>
+                        )}
+                    </div>
+                </div>
+            )}
+        </>
+    );
+}
 
 function CollapsibleSection({ title, icon: Icon, children, defaultOpen = false }) {
     const [isOpen, setIsOpen] = useState(defaultOpen);
@@ -402,15 +523,11 @@ function App() {
 
             <section id="projects" className="py-20 px-4 bg-gray-50 dark:bg-gray-800">
                 <div className="max-w-6xl mx-auto">
-                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-12 text-center">Proyectos Personales</h2>
+                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-12 text-center">Proyectos Freelance</h2>
                     <div className="grid md:grid-cols-2 gap-6">
                         {PERSONAL_DATA.projects.map(project => (
                             <div key={project.id} className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden hover:shadow-lg transition-shadow bg-white dark:bg-gray-800">
-                                <img
-                                    src={project.image}
-                                    alt={project.title}
-                                    className="w-full h-48 object-cover"
-                                />
+                                <ImageCarousel images={project.images} projectTitle={project.title} />
                                 <div className="p-6">
                                     <div className="flex justify-between items-start mb-3">
                                         <h3 className="text-xl font-bold text-gray-900 dark:text-white">{project.title}</h3>
@@ -430,10 +547,12 @@ function App() {
                       </span>
                                         ))}
                                     </div>
-                                    <a href={project.github} target="_blank" rel="noopener noreferrer"
-                                       className="flex items-center gap-1 text-sm text-blue-600 dark:text-blue-400 hover:underline">
-                                        <Code2 className="w-4 h-4" /> Ver código
-                                    </a>
+                                    {project.demo && (
+                                        <a href={project.demo} target="_blank" rel="noopener noreferrer"
+                                           className="flex items-center gap-1 text-sm text-blue-600 dark:text-blue-400 hover:underline">
+                                            <ExternalLink className="w-4 h-4" /> Ver demo en vivo
+                                        </a>
+                                    )}
                                 </div>
                             </div>
                         ))}
