@@ -119,10 +119,8 @@ const PERSONAL_DATA = {
             description: "ERP con arquitectura multi-tenant donde se le presenta una solución al cliente. Contiene métodos de pago, gestión de ventas, trazabilidad y gráficos estadísticos de las ventas por producto/servicio o fechas,etc.",
             tech: ["React", "Vite", "Spring Boot", "Spring Security", "PostgreSQL", "JWT","MPIntegration","Webhooks"],
             images: [
-                "https://via.placeholder.com/800x450/7c3aed/ffffff?text=ERP+Dashboard",
-                "https://via.placeholder.com/800x450/a855f7/ffffff?text=Tenant+Management",
-                "https://via.placeholder.com/800x450/c084fc/ffffff?text=Security+Module"
-            ], // Reemplazar con tus URLs
+                "https://i.imgur.com/96LGOVw.png"
+            ],
             status: "En desarrollo",
             statusColor: "yellow"
         },
