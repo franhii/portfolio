@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Github, Linkedin, Mail, Moon, Sun, ExternalLink, Code2, Database, Server, ChevronDown, ChevronUp, GraduationCap, Languages, Lightbulb, Briefcase, Calendar, MapPin, Send, User, MessageSquare, ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { Github, Linkedin, Mail, Moon, Sun, ExternalLink, Code2, Database, Server, ChevronDown, ChevronUp, GraduationCap, Languages, Lightbulb, Briefcase, Calendar, MapPin, Send, User, MessageSquare, ChevronLeft, ChevronRight, X, Menu } from 'lucide-react';
 
 const PERSONAL_DATA = {
     name: "Francis Vaccarezza",
@@ -8,7 +8,7 @@ const PERSONAL_DATA = {
     email: "francisvaccarezza@gmail.com",
     github: "https://github.com/franhii",
     linkedin: "https://www.linkedin.com/in/francis-vaccarezza/",
-    location: "Mar del Plata, Buenos Aires, Argentina",
+    location: "Venado Tuerto, Santa Fe, Argentina",
     phone: "(3462) 634962",
 
     skills: {
@@ -59,7 +59,7 @@ const PERSONAL_DATA = {
         {
             id: 1,
             company: "BESYSOFT S.A",
-            position: "Analista Programador Semi-Senior",
+            position: "Analista Programador Senior",
             period: "Agosto 2022 - Actualidad",
             location: "Remoto",
             type: "Full-time",
@@ -71,7 +71,7 @@ const PERSONAL_DATA = {
                 "Gestión de ciclo completo: Desarrollo (Bitbucket) → Testing → Producción",
                 "Mantenimiento post-release utilizando Kanban para bugfixing y mejoras",
                 "Migraciones de APIs legacy a Java moderno",
-                "Creación y actualización de procesos en Oracle BPM 5.7/10.3",
+                "Diseño y optimización de bases de datos (Store Procedures, Funciones, Scripts)",
                 "Implementación de seguridad con Spring Security y JWT"
             ],
             tech: ["Angular", "Spring Boot", "Java", "Oracle SQL", "REST/SOAP", "Jira", "Bitbucket", "Scrum", "Kanban"]
@@ -86,9 +86,9 @@ const PERSONAL_DATA = {
             description: "Desarrollo de soluciones financieras backend y gestión de bases de datos",
             responsibilities: [
                 "Análisis y desglosamiento de requerimientos en Jira/Trello",
-                "Diseño y optimización de bases de datos (Store Procedures, Funciones, Scripts)",
                 "Desarrollo de microservicios con Spring Framework (2.7/3.0) y Java (1.8/11)",
                 "Adaptación de Web Services REST y SOAP para productos financieros",
+                "Creación y actualización de procesos en Oracle BPM 5.7/10.3",
                 "Testing de APIs con Postman, Swagger y SOAP UI",
                 "Desarrollo de mejoras y actualizaciones en productos de Seguros, Préstamos y Refinanciación"
             ],
@@ -115,9 +115,9 @@ const PERSONAL_DATA = {
         },
         {
             id: 2,
-            title: "E-Commerce para rubros varios (Productos y Servicios).",
-            description: "ERP con arquitectura multi-tenant donde se le presenta una solución al cliente. Contiene métodos de pago, gestión de ventas, trazabilidad y gráficos estadísticos de las ventas por producto/servicio o fechas,etc.",
-            tech: ["React", "Vite", "Spring Boot", "Spring Security", "PostgreSQL", "JWT","MPIntegration","Webhooks"],
+            title: "E-Commerce Multi-tenant",
+            description: "ERP con arquitectura multi-tenant donde se le presenta una solución al cliente. Contiene métodos de pago, gestión de ventas, trazabilidad y gráficos estadísticos de las ventas por producto/servicio o fechas.",
+            tech: ["React", "Vite", "Spring Boot", "Spring Security", "PostgreSQL", "JWT","MP Integration","Webhooks"],
             images: [
                 "https://i.imgur.com/96LGOVw.png"
             ],
@@ -126,13 +126,15 @@ const PERSONAL_DATA = {
         },
         {
             id: 3,
-            title: "Pacentin - Historial clínico y consultas de pacientes.",
-            description: "Aplicación de escritorio Java para un doctor, el objetivo era tener una app donde pueda subir el historial clínico y registrar cada consulta de los pacientes.(con fotos,pdfs,recetas,radiografias en formato de imagen jpg,png,etc...)",
-            tech: ["Java", "Swing/JavaFX"],
-            images: ["https://i.imgur.com/m1QImhZ.png",
-            "https://i.imgur.com/AmXgADt.png",
-            "https://i.imgur.com/93f6xAJ.png",],
-            status: "Completed",
+            title: "Pacentin - Historial Clínico",
+            description: "Aplicación de escritorio Java para gestión de historiales clínicos y consultas de pacientes (fotos, PDFs, recetas, radiografías).",
+            tech: ["Java", "JavaFX", "Spring Boot", "H2"],
+            images: [
+                "https://i.imgur.com/m1QImhZ.png",
+                "https://i.imgur.com/AmXgADt.png",
+                "https://i.imgur.com/93f6xAJ.png"
+            ],
+            status: "Finalizado",
             statusColor: "green"
         }
     ]
@@ -270,6 +272,7 @@ function CollapsibleSection({ title, icon: Icon, children, defaultOpen = false }
 
 function App() {
     const [darkMode, setDarkMode] = useState(true);
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -299,7 +302,6 @@ function App() {
         setFormStatus({ type: '', message: '' });
 
         try {
-            // Endpoint de tu backend Spring Boot
             const response = await fetch('https://jalisa-unsensualistic-unfemininely.ngrok-free.dev/api/portfolio/contact', {
                 method: 'POST',
                 headers: {
@@ -330,22 +332,52 @@ function App() {
     return (
         <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors">
             <nav className="fixed top-0 w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm z-50 border-b border-gray-200 dark:border-gray-800">
-                <div className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-          <span className="text-xl font-bold text-gray-900 dark:text-white">
-            {PERSONAL_DATA.name}
-          </span>
-                    <div className="flex gap-6 items-center">
-                        <a href="#about" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">About</a>
-                        <a href="#experience" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Experience</a>
-                        <a href="#projects" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Projects</a>
-                        <a href="#contact" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Contact</a>
-                        <button
-                            onClick={() => setDarkMode(!darkMode)}
-                            className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
-                        >
-                            {darkMode ? <Sun className="w-5 h-5 text-gray-300" /> : <Moon className="w-5 h-5 text-gray-700" />}
-                        </button>
+                <div className="max-w-6xl mx-auto px-4 py-4">
+                    <div className="flex justify-between items-center">
+                        <span className="text-xl font-bold text-gray-900 dark:text-white">
+                            {PERSONAL_DATA.name}
+                        </span>
+
+                        {/* Desktop Menu */}
+                        <div className="hidden md:flex gap-6 items-center">
+                            <a href="#about" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">About</a>
+                            <a href="#experience" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Experience</a>
+                            <a href="#projects" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Projects</a>
+                            <a href="#contact" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Contact</a>
+                            <button
+                                onClick={() => setDarkMode(!darkMode)}
+                                className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+                            >
+                                {darkMode ? <Sun className="w-5 h-5 text-gray-300" /> : <Moon className="w-5 h-5 text-gray-700" />}
+                            </button>
+                        </div>
+
+                        {/* Button Mobile */}
+                        <div className="md:hidden flex items-center gap-2">
+                            <button
+                                onClick={() => setDarkMode(!darkMode)}
+                                className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+                            >
+                                {darkMode ? <Sun className="w-5 h-5 text-gray-300" /> : <Moon className="w-5 h-5 text-gray-700" />}
+                            </button>
+                            <button
+                                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                                className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+                            >
+                                {mobileMenuOpen ? <X className="w-6 h-6 text-gray-700 dark:text-gray-300" /> : <Menu className="w-6 h-6 text-gray-700 dark:text-gray-300" />}
+                            </button>
+                        </div>
                     </div>
+
+                    {/* Mobile Menu */}
+                    {mobileMenuOpen && (
+                        <div className="md:hidden mt-4 pb-4 space-y-2">
+                            <a href="#about" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg">About</a>
+                            <a href="#experience" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg">Experience</a>
+                            <a href="#projects" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg">Projects</a>
+                            <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg">Contact</a>
+                        </div>
+                    )}
                 </div>
             </nav>
 
@@ -393,8 +425,8 @@ function App() {
                             <div className="flex flex-wrap gap-3 justify-center">
                                 {PERSONAL_DATA.skills.frontend.map(skill => (
                                     <span key={skill.name} className="px-4 py-2 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm font-medium flex items-center gap-2">
-                    <span>{skill.icon}</span> {skill.name}
-                  </span>
+                                        <span>{skill.icon}</span> {skill.name}
+                                    </span>
                                 ))}
                             </div>
                         </div>
@@ -406,8 +438,8 @@ function App() {
                             <div className="flex flex-wrap gap-3 justify-center">
                                 {PERSONAL_DATA.skills.backend.map(skill => (
                                     <span key={skill.name} className="px-4 py-2 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-sm font-medium flex items-center gap-2">
-                    <span>{skill.icon}</span> {skill.name}
-                  </span>
+                                        <span>{skill.icon}</span> {skill.name}
+                                    </span>
                                 ))}
                             </div>
                         </div>
@@ -419,8 +451,8 @@ function App() {
                             <div className="flex flex-wrap gap-3 justify-center">
                                 {PERSONAL_DATA.skills.databases.map(skill => (
                                     <span key={skill.name} className="px-4 py-2 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 rounded-full text-sm font-medium flex items-center gap-2">
-                    <span>{skill.icon}</span> {skill.name}
-                  </span>
+                                        <span>{skill.icon}</span> {skill.name}
+                                    </span>
                                 ))}
                             </div>
                         </div>
@@ -442,8 +474,8 @@ function App() {
                             <div className="flex flex-wrap gap-2">
                                 {PERSONAL_DATA.softSkills.map(skill => (
                                     <span key={skill} className="px-3 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-sm">
-                    {skill}
-                  </span>
+                                        {skill}
+                                    </span>
                                 ))}
                             </div>
                         </CollapsibleSection>
@@ -457,8 +489,8 @@ function App() {
                                     <Calendar className="w-4 h-4" />
                                     <span>{PERSONAL_DATA.education.period}</span>
                                     <span className="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded text-xs">
-                    {PERSONAL_DATA.education.status}
-                  </span>
+                                        {PERSONAL_DATA.education.status}
+                                    </span>
                                 </div>
                             </div>
                         </CollapsibleSection>
@@ -477,17 +509,17 @@ function App() {
                                     <div>
                                         <h4 className="text-xl font-bold text-gray-900 dark:text-white">{exp.position}</h4>
                                         <div className="flex flex-wrap gap-3 mt-2 text-sm text-gray-600 dark:text-gray-400">
-                      <span className="flex items-center gap-1">
-                        <Calendar className="w-4 h-4" />
-                          {exp.period}
-                      </span>
                                             <span className="flex items-center gap-1">
-                        <MapPin className="w-4 h-4" />
+                                                <Calendar className="w-4 h-4" />
+                                                {exp.period}
+                                            </span>
+                                            <span className="flex items-center gap-1">
+                                                <MapPin className="w-4 h-4" />
                                                 {exp.location}
-                      </span>
+                                            </span>
                                             <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded text-xs">
-                        {exp.type}
-                      </span>
+                                                {exp.type}
+                                            </span>
                                         </div>
                                     </div>
 
@@ -507,8 +539,8 @@ function App() {
                                         <div className="flex flex-wrap gap-2">
                                             {exp.tech.map(t => (
                                                 <span key={t} className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded text-sm">
-                          {t}
-                        </span>
+                                                    {t}
+                                                </span>
                                             ))}
                                         </div>
                                     </div>
@@ -534,15 +566,15 @@ function App() {
                                                 ? 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200'
                                                 : 'bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200'
                                         }`}>
-                      {project.status}
-                    </span>
+                                            {project.status}
+                                        </span>
                                     </div>
                                     <p className="text-gray-600 dark:text-gray-400 mb-4">{project.description}</p>
                                     <div className="flex flex-wrap gap-2 mb-4">
                                         {project.tech.map(t => (
                                             <span key={t} className="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded">
-                        {t}
-                      </span>
+                                                {t}
+                                            </span>
                                         ))}
                                     </div>
                                     {project.demo && (
